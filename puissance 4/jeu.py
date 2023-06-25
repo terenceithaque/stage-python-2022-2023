@@ -66,11 +66,11 @@ def verifierGrillePleine():
 
 def verifierHorizontalement(joueur):
     "Vérifier si le joueur passé en paramètre a placé 4 jetons horizontalement"
-    # Nombre de fois où le numéro du joueur apparaît 4 fois de suite dans la ligne
+    # Nombre de fois où le numéro du joueur apparaît  dans la ligne
     n_apparition_num_joueur = 0
     for ligne in grille:  # Pour chaque ligne de la grille
         for case in ligne:  # Pour chaque case de la ligne
-            if joueur == case:  # Si le numéro du joueur apparaît dans la ligne
+            if joueur == case:  # Si le numéro du joueur apparaît dans la case
                 # Augmenter le nombre de fois où l'on a vus le numéro du joueur
                 n_apparition_num_joueur += 1
             else:
@@ -80,6 +80,30 @@ def verifierHorizontalement(joueur):
                 return True  # Alors le joueur a bien placé 4 jetons horizontalement
 
     return False  # Le joueur n'a pas placé 4 jetons horizontalement
+
+
+def verifierVerticalement(joueur):
+    "Vérifier si le joueur passé en paramètre a placé 4 jetons verticalement"
+    for colonne in grille:  # Pour chaque colonne de la grille
+        # Nombre de fois où le numéro du joueur apparaît dans la colonne
+        n_apparition_num_joueur = 0
+
+        # print("colonne :", colonne)
+
+        for ligne in colonne:
+            print("ligne :", ligne)
+
+            # Si le numéro du joueur apparaît dans la ligne
+            if joueur == ligne:
+                # Augmenter le nombre de fois où l'on a vus le numéro du joueur
+                n_apparition_num_joueur += 1
+            else:
+                n_apparition_num_joueur = 0
+
+            if n_apparition_num_joueur == 4:  # Si le numéro du joueur est apparu au moins 4 fois dans la colonne
+                return True  # Alors le joueur a bien placé 4 jetons verticalement
+
+    return False  # Le joueur n'a pas placé 4 jetons verticalement
 
 
 def demanderColonne(joueur):
@@ -125,7 +149,9 @@ def boucleDeJeu():
     while True:
         afficherGrille()  # Afficher la grille
         jouerLeTour(numero_joueur)  # Donner le tour au joueur actuel
-        print(verifierHorizontalement(numero_joueur))
+        print("Vérification horizontale :",
+              verifierHorizontalement(numero_joueur))
+        print("Vérification verticale :", verifierVerticalement(numero_joueur))
 
         if joueurGagne(numero_joueur):  # Si le joueur actuel gagne la partie
             return numero_joueur  # Retourner le numéro du joueur actuel
